@@ -22,9 +22,7 @@ class DashboardHtmlView extends DefaultHtmlView
 {
 	function render()
 	{
-		$david = "David Hurley";
-		
-		$this->renderer->set('name',$david);
+		$this->renderer->set('logo', DEFAULT_THEME.'/images/logo.png');
 		return parent::render();
 	}
 }

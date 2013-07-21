@@ -10,13 +10,18 @@
         "joomla/framework": "dev-master",
         "symfony/http-foundation": "2.3.*@stable",
         "twig/twig" : "1.*",
-        "mustache/mustache" : "2.1.*"
+        "twitter/bootstrap":"dev-master"
     },
 	"require-dev": {
 		"monolog/monolog": "1.5.0",
 		"raveren/kint": "dev-master",
 		"filp/whoops": "1.0.7"
 	},
+    "scripts": {
+        "post-package-install": [
+            "App\\Setup\\InstallSymlinks::postPackageInstall"
+        ]
+    },
     "autoload": {
         "psr-0": {
             "App": ""

@@ -109,7 +109,7 @@ final class App extends AbstractWebApplication
 		$this->theme = $this->config->get('theme.default');
 
 		define('BASE_URL', $this->get('uri.base.full'));
-		define('DEFAULT_THEME', BASE_URL . '/themes/' . $this->theme);
+		define('DEFAULT_THEME', BASE_URL . 'themes/' . $this->theme);
 
 		// Load the library language file
 		$this->getLanguage()->load('lib_joomla', JPATH_BASE);
