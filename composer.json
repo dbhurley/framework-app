@@ -1,0 +1,26 @@
+{
+    "name": "com.websparkinc.framework-app",
+    "description": "Sample Framework App.",
+    "keywords": ["webspark","wastezilla"],
+    "homepage": "#",
+    "license": "GPL-2.0+",
+	"version": "1.0.0-alpha",
+    "require": {
+        "php": ">=5.3.10",
+        "joomla/framework": "dev-master",
+        "symfony/http-foundation": "2.3.*@stable",
+        "twig/twig" : "1.*",
+        "mustache/mustache" : "2.1.*"
+    },
+	"require-dev": {
+		"monolog/monolog": "1.5.0",
+		"raveren/kint": "dev-master",
+		"filp/whoops": "1.0.7"
+	},
+    "autoload": {
+        "psr-0": {
+            "App": ""
+        }
+    },
+    "minimum-stability": "dev"
+}
