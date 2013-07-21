@@ -1,2 +1,4 @@
 vendor
-find . -type l
+www/assets/css
+www/assets/js
+www/assets/img
