@@ -22,7 +22,10 @@ class DashboardHtmlView extends DefaultHtmlView
 {
 	function render()
 	{
+		$this->renderer->set('success', Factory::$application->input->get('success', FALSE));
 		$this->renderer->set('logo', DEFAULT_THEME.'/images/logo.png');
+		$this->renderer->set('base_url',BASE_URL);
+		$this->renderer->set('config', Factory::getConfig());
 		return parent::render();
 	}
 }

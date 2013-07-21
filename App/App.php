@@ -212,7 +212,7 @@ final class App extends AbstractWebApplication
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	private function loadConfiguration()
+	public function loadConfiguration()
 	{
 		// Set the configuration file path for the application.
 		$file = JPATH_CONFIGURATION . '/config.json';

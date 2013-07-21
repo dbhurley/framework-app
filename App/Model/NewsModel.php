@@ -46,4 +46,16 @@ class NewsModel extends DefaultModel
 
 		return $data;
 	}
+
+	function getItems()
+	{
+		$query = $this->db->getQuery(true);
+		$query->select('a.*')
+			  ->from($this->db->quoteName('#__news','a'));
+
+		$this->db->setQuery($query);
+		$data = $this->db->loadObjectList();
+
+		return $data;
+	}
 }

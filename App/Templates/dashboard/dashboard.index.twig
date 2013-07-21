@@ -1,3 +1,6 @@
+{% if success %}
+	<div class="alert alert-success">Sweet! You've setup your database successfully. Check out the <a href="news">Sample Page</a></div>
+{% endif %}
 <div class="jumbotron">
 	<h1>Congratulations!<br />It's Installed</h1>
 	<p class="lead">You've now got the Joomla! Framework installed and you're ready to get started coding. If you have questions, be sure to check out the docs.</p>
@@ -32,5 +35,37 @@
 <hr />
 <div class="row-fluid">
 		<h4>You should setup your database now. </h4>
-		<div class="alert"><strong>Hint: </strong> Look in the App/Config folder to locate the config.json file. Enter your database details there.</div>
+		<a href="#databaseModal" role="button" class="btn" data-toggle="modal">Enter DB Settings</a>
+</div> 
+<!-- Modal -->
+<div id="databaseModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="databaseModalLabel" aria-hidden="true">
+<form action='{{base_url}}dashboard/updateDatabase' method='post'>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="databaseModalLabel">Enter Database Details</h3>
+  </div>
+	  <div class="modal-body">
+	    <div class="row-fluid">
+	    	<div class="span6">
+			    <label><strong>Database Driver</strong></label>
+			    <input type="text" name="driver" value="{{config.database.driver}}" placeholder="e.g. mysql" />
+			    <label><strong>Database Host</strong></label>
+			    <input type="text" name="host" value="{{config.database.host}}" placeholder="e.g. localhost" />
+				<label><strong>Database Table Prefix</strong></label>
+				<input type="text" name="prefix" value="{{config.database.prefix}}" placeholder="e.g. app_" />
+			</div>
+			<div class="span6">
+			    <label><strong>Database User</strong></label>
+			    <input type="text" name="user" value="{{config.database.user}}" placeholder="e.g. root" />
+			    <label><strong>Database Password</strong></label>
+			    <input type="password" name="password" value="{{config.database.password}}" placeholder="password" />
+			    <label><strong>Sample Data</strong></strong><br /><input type="checkbox" value="1" name="install_sample_data" /> Install Sample Data</label>
+			</div>
+		</div>
+	  </div>
+	  <div class="modal-footer">
+	    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+	    <button class="btn btn-primary">Update Database</button>
+	  </div>
+	</form>
 </div>

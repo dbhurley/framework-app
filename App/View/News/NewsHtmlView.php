@@ -36,6 +36,8 @@ class NewsHtmlView extends DefaultHtmlView
 				$this->setLayout('news.edit');
 			break;
 			default:
+				$items = $this->model->getItems();
+				$this->renderer->set('items',$items);
 			break;
 		}
 

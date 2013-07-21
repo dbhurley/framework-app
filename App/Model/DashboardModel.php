@@ -19,5 +19,73 @@ use App\Model\DefaultModel;
  */
 class DashboardModel extends DefaultModel
 {
+	public function updateDatabase()
+	{
+		$input = Factory::$application->input;
+		$oldConfig = Factory::getConfig();
+		
+		$file = JPATH_CONFIGURATION . '/config.json';
 
+		// Verify the configuration exists and is readable.
+		if (!is_readable($file))
+		{
+			throw new \RuntimeException('Configuration file does not exist or is unreadable.');
+		}
+		
+		$config = json_decode(file_get_contents($file));
+
+		$config->database->driver = $input->get('driver');
+		$config->database->user = $input->get('user', $oldConfig->get('database.user'));
+		$config->database->password = $input->get('password', $oldConfig->get('database.password'));
+		$config->database->name = $input->get('name', $oldConfig->get('database.name'));
+		$config->database->host = $input->get('host', $oldConfig->get('database.host'));
+		$config->database->prefix = $input->get('prefix', $oldConfig->get('database.prefix'));
+
+		file_put_contents($file, json_encode($config));
+
+		Factory::$application->loadConfiguration();
+
+		if($input->get('install_sample_data')) 
+		{
+			$this->installSampleData();
+		}
+
+		return true;
+	}
+
+	public function installSampleData() 
+	{
+		$query = $this->db->getQuery(true);
+		$sampleData = JPATH_SETUP . '/sampleData.sql';
+
+		if(!is_readable($sampleData))
+		{
+			throw new \RuntimeException('Sample Data file does not exist or is unreadable');
+		}
+
+		$sql = file_get_contents($sampleData);
+
+		if (false == $sql)
+		{
+			throw new \UnexpectedValueException('SQL file corrupted.');
+		}
+
+		foreach ($this->db->splitSql($sql) as $query)
+		{
+
+			$q = trim($this->db->replacePrefix($query));
+
+			if ('' == trim($q))
+			{
+				continue;
+			}
+
+			$this->db->setQuery($q);
+			$this->db->execute();
+		}
+
+		Factory::$application->input->set('success',TRUE);
+		Factory::$application->redirect('');
+		return true;
+	}
 }
