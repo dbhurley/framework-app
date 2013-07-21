@@ -24,16 +24,17 @@ class NewsHtmlView extends DefaultHtmlView
 	function render()
 	{
 		switch($this->getLayout()) {
-			case 'news.article':
+			case 'news.view':
+			case 'news.edit':
 				// Get the input
-				$item = $this->model->getItem();
-				$this->renderer->set('item',$item);
+				if(Factory::$application->input->get('task')!='add') {
+					$item = $this->model->getItem();
+					$this->renderer->set('item',$item);
+				}
 			break;
-			
 			case 'news.add':
-
+				$this->setLayout('news.edit');
 			break;
-			
 			default:
 			break;
 		}

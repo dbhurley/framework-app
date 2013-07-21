@@ -34,4 +34,9 @@ class NewsController extends DefaultController
 		$this->defaultView = 'news';
 	}
 
+	public function save()
+	{
+		exit();
+	}
+
 }

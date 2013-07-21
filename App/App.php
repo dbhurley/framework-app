@@ -138,7 +138,7 @@ final class App extends AbstractWebApplication
 
 			$router->addMaps($maps, true);
 			$router->setControllerPrefix('\\App');
-			$router->setDefaultController('\\App\\Controller\\DefaultController');
+			$router->setDefaultController('\\Controller\\DefaultController');
 		
 			// Fetch the controller
 			$controller = $router->getController($this->get('uri.route'));	

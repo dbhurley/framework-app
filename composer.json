@@ -1,7 +1,7 @@
 {
     "name": "com.websparkinc.framework-app",
     "description": "Sample Framework App.",
-    "keywords": ["webspark","wastezilla"],
+    "keywords": ["framework-app","joomla-framework"],
     "homepage": "#",
     "license": "GPL-2.0+",
 	"version": "1.0.0-alpha",

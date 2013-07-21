@@ -1,5 +1,6 @@
 {
 	"home": "\\Controller\\DefaultController",
 	"news": "\\Controller\\NewsController",
-	"news/:layout/:id-alias": "\\Controller\\NewsController"
+	"news/:task": "\\Controller\\NewsController",
+	"news/:task/:id": "\\Controller\\NewsController"
 }

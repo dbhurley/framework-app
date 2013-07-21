@@ -27,7 +27,7 @@ class DefaultHtmlView extends AbstractView
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $layout = 'index';
+	protected $layout = null;
 
 	/**
 	 * The view template engine.

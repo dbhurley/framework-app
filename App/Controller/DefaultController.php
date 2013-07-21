@@ -68,13 +68,29 @@ class DefaultController extends AbstractController
 		
 		// Get the input
 		$input = $this->getInput();
+		
+		$task = $input->get('task');
 
 		// Get some data from the request
 		$vName   = $input->getWord('view', $this->defaultView);
 		$vFormat = $input->getWord('format', 'html');
 
 		//TODO
-		$lName   = $input->getCmd('layout', 'index');
+		if (is_null($input->getWord('layout')))
+		{
+			if($task == 'view' && $input->get('id') == null)
+			{
+				$input->set('layout','index');
+			} elseif($task =='view') 
+			{
+				$input->set('layout',$input->get('task','index'));
+			} elseif($task != null)
+			{
+				$this->$task();
+			}
+		}
+
+		$lName   = $input->get('layout');
 
 		$input->set('view', $vName);
 
