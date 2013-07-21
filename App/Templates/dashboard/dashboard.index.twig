@@ -33,10 +33,11 @@
 	</div>
 </div>
 <hr />
-<div class="row-fluid">
+{% if success == false %}
+<div class="row-fluid well">
 		<h4>You should setup your database now. </h4>
 		<a href="#databaseModal" role="button" class="btn" data-toggle="modal">Enter DB Settings</a>
-</div> 
+</div>
 <!-- Modal -->
 <div id="databaseModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="databaseModalLabel" aria-hidden="true">
 <form action='{{base_url}}dashboard/updateDatabase' method='post'>
@@ -69,3 +70,4 @@
 	  </div>
 	</form>
 </div>
+{% endif %}

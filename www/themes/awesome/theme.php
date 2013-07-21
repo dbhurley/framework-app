@@ -12,7 +12,7 @@
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
           <li class="active"><a href="<?php echo BASE_URL; ?>">Home</a></li>
-		  <li><a href="<?php echo BASE_URL; ?>/news">Sample Page</a></li>          
+		      <li><a href="<?php echo BASE_URL; ?>/news">Sample Page</a></li>          
           <li><a href="http://joomla.github.io/joomla-framework/">Docs</a></li>
         </ul>
         <h3 class="muted">Joomla! Framework</h3>
