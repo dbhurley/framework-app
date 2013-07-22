@@ -52,16 +52,20 @@
 			    <input type="text" name="driver" value="{{config.database.driver}}" placeholder="e.g. mysql" />
 			    <label><strong>Database Host</strong></label>
 			    <input type="text" name="host" value="{{config.database.host}}" placeholder="e.g. localhost" />
-				<label><strong>Database Table Prefix</strong></label>
-				<input type="text" name="prefix" value="{{config.database.prefix}}" placeholder="e.g. app_" />
+				<label><strong>Database Name</strong</label>
+				<input type="text" name="name" value="{{config.database.name}}" placeholder="e.g. myapp" />
 			</div>
 			<div class="span6">
+				<label><strong>Database Table Prefix</strong></label>
+				<input type="text" name="prefix" value="{{config.database.prefix}}" placeholder="e.g. app_" />
 			    <label><strong>Database User</strong></label>
 			    <input type="text" name="user" value="{{config.database.user}}" placeholder="e.g. root" />
 			    <label><strong>Database Password</strong></label>
 			    <input type="password" name="password" value="{{config.database.password}}" placeholder="password" />
-			    <label><strong>Sample Data</strong></strong><br /><input type="checkbox" value="1" name="install_sample_data" /> Install Sample Data</label>
 			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="alert alert-info"><label><input type="checkbox" value="1" name="install_sample_data" /> Install Sample Data</label></div>
 		</div>
 	  </div>
 	  <div class="modal-footer">
