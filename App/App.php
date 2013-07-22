@@ -289,31 +289,6 @@ final class App extends AbstractWebApplication
 	}
 
 	/**
-	 * Get a user object.
-	 *
-	 * @param   integer  $id  The user id or the current user.
-	 *
-	 * @return  User
-	 *
-	 * @since   1.0
-	 */
-	public function getUser($id = 0)
-	{
-		if ($id)
-		{
-			return new GitHubUser($id);
-		}
-
-		if (is_null($this->user))
-		{
-			$this->user = ($this->getSession()->get('user'))
-				? : new GitHubUser;
-		}
-
-		return $this->user;
-	}
-
-	/**
 	 * Get a database driver object.
 	 *
 	 * @return  DatabaseDriver
@@ -359,39 +334,6 @@ final class App extends AbstractWebApplication
 		}
 
 		return $this->language;
-	}
-
-	/**
-	 * Login or logout a user.
-	 *
-	 * @param   User  $user  The user object.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setUser(User $user = null)
-	{
-		if (is_null($user))
-		{
-			// Logout
-			$this->user = new GitHubUser;
-
-			$this->getSession()->set('user', $this->user);
-
-			// @todo cleanup more ?
-		}
-		else
-		{
-			// Login
-			$user->isAdmin = in_array($user->username, $this->get('acl.admin_users'));
-
-			$this->user = $user;
-
-			$this->getSession()->set('user', $user);
-		}
-
-		return $this;
 	}
 
 	/**
@@ -446,82 +388,6 @@ final class App extends AbstractWebApplication
 	public function getName()
 	{
 		return $this->name;
-	}
-
-	/**
-	 * Gets a user state.
-	 *
-	 * @param   string  $key      The path of the state.
-	 * @param   mixed   $default  Optional default value, returned if the internal value is null.
-	 *
-	 * @return  mixed  The user state or null.
-	 *
-	 * @since   1.0
-	 */
-	public function getUserState($key, $default = null)
-	{
-		/* @type Registry $registry */
-		$registry = $this->getSession()->get('registry');
-
-		if (!is_null($registry))
-		{
-			return $registry->get($key, $default);
-		}
-
-		return $default;
-	}
-
-	/**
-	 * Gets the value of a user state variable.
-	 *
-	 * @param   string  $key      The key of the user state variable.
-	 * @param   string  $request  The name of the variable passed in a request.
-	 * @param   string  $default  The default value for the variable if not found. Optional.
-	 * @param   string  $type     Filter for the variable, for valid values see {@link JFilterInput::clean()}. Optional.
-	 *
-	 * @return  mixed The request user state.
-	 *
-	 * @since   1.0
-	 */
-	public function getUserStateFromRequest($key, $request, $default = null, $type = 'none')
-	{
-		$cur_state = $this->getUserState($key, $default);
-		$new_state = $this->input->get($request, null, $type);
-
-		// Save the new value only if it was set in this request.
-		if ($new_state !== null)
-		{
-			$this->setUserState($key, $new_state);
-		}
-		else
-		{
-			$new_state = $cur_state;
-		}
-
-		return $new_state;
-	}
-
-	/**
-	 * Sets the value of a user state variable.
-	 *
-	 * @param   string  $key    The path of the state.
-	 * @param   string  $value  The value of the variable.
-	 *
-	 * @return  mixed  The previous state, if one existed.
-	 *
-	 * @since   1.0
-	 */
-	public function setUserState($key, $value)
-	{
-		/* @type Registry $registry */
-		$registry = $this->getSession()->get('registry');
-
-		if (!is_null($registry))
-		{
-			return $registry->set($key, $value);
-		}
-
-		return null;
 	}
 
 	/**
