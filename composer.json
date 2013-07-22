@@ -18,8 +18,8 @@
 		"filp/whoops": "1.0.7"
 	},
     "scripts": {
-        "post-package-install": [
-            "App\\Setup\\InstallSymlinks::postPackageInstall"
+        "post-install-cmd": [
+            "App\\Setup\\InstallSymlinks::postInstall"
         ]
     },
     "autoload": {
