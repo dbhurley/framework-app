@@ -14,7 +14,7 @@ use Composer\Script\Event;
  */
 class InstallSymlinks
 {
-    public static function postPackageInstall(Event $event)
+    public static function postInstall(Event $event)
 	{
 		$bsImagePath = '../../vendor/twitter/bootstrap/docs/assets/img';
 		$imgAssetsPath = 'www/assets/img';
