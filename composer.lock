@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c9a28ce71c408abd8d174c8547ef27dd",
+    "hash": "0d34e48b8390a61a52ccd4d1c9794c75",
     "packages": [
         {
             "name": "joomla/framework",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "324e14455e504efce18c5080c8cc925dfe6c3ebb"
+                "reference": "1.0-alpha"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/324e14455e504efce18c5080c8cc925dfe6c3ebb",
-                "reference": "324e14455e504efce18c5080c8cc925dfe6c3ebb",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/1.0-alpha",
+                "reference": "1.0-alpha",
                 "shasum": ""
             },
             "require": {
@@ -86,7 +86,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-07-11 06:00:24"
+            "time": "2013-07-24 19:51:20"
         },
         {
             "name": "psr/log",
@@ -128,17 +128,17 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v2.3.2",
+            "version": "v2.3.3",
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "v2.3.2"
+                "reference": "v2.3.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/v2.3.2",
-                "reference": "v2.3.2",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/v2.3.3",
+                "reference": "v2.3.3",
                 "shasum": ""
             },
             "require": {
@@ -174,7 +174,34 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-07-17 05:57:53"
+            "time": "2013-08-07 14:02:06"
+        },
+        {
+            "name": "twbs/bootstrap",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap.git",
+                "reference": "7f0b487477bc63bef488dff14a0c28ea2106286b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/7f0b487477bc63bef488dff14a0c28ea2106286b",
+                "reference": "7f0b487477bc63bef488dff14a0c28ea2106286b",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Sleek, intuitive, and powerful front-end framework for faster and easier web development.",
+            "homepage": "http://twbs.github.com/bootstrap/",
+            "keywords": [
+                "bootstrap",
+                "css"
+            ],
+            "time": "2013-07-31 19:36:59"
         },
         {
             "name": "twig/twig",
@@ -182,12 +209,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "c35d7f267ffed95060066a6edd610cb23e9e3e50"
+                "reference": "fcf007e9a2e6c65594360ae7fa3c410ae8d56a11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/c35d7f267ffed95060066a6edd610cb23e9e3e50",
-                "reference": "c35d7f267ffed95060066a6edd610cb23e9e3e50",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/fcf007e9a2e6c65594360ae7fa3c410ae8d56a11",
+                "reference": "fcf007e9a2e6c65594360ae7fa3c410ae8d56a11",
                 "shasum": ""
             },
             "require": {
@@ -196,7 +223,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13-dev"
+                    "dev-master": "1.14-dev"
                 }
             },
             "autoload": {
@@ -223,34 +250,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-07-15 15:12:47"
-        },
-        {
-            "name": "twitter/bootstrap",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/twitter/bootstrap.git",
-                "reference": "d991ef2ab1b4d156c7e5d33d052d66f8eaafc460"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twitter/bootstrap/zipball/d991ef2ab1b4d156c7e5d33d052d66f8eaafc460",
-                "reference": "d991ef2ab1b4d156c7e5d33d052d66f8eaafc460",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "description": "Sleek, intuitive, and powerful front-end framework for faster and easier web development.",
-            "homepage": "http://twitter.github.com/bootstrap/",
-            "keywords": [
-                "bootstrap",
-                "css"
-            ],
-            "time": "2013-06-20 19:11:39"
+            "time": "2013-08-07 12:53:34"
         }
     ],
     "packages-dev": [
@@ -373,12 +373,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/raveren/kint.git",
-                "reference": "7220259ffb228626d29dc4143738a8d4e7c8c31f"
+                "reference": "5de72698494bad75ebfbb76b04fad9ef60fb0ec7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raveren/kint/zipball/7220259ffb228626d29dc4143738a8d4e7c8c31f",
-                "reference": "7220259ffb228626d29dc4143738a8d4e7c8c31f",
+                "url": "https://api.github.com/repos/raveren/kint/zipball/5de72698494bad75ebfbb76b04fad9ef60fb0ec7",
+                "reference": "5de72698494bad75ebfbb76b04fad9ef60fb0ec7",
                 "shasum": ""
             },
             "require": {
@@ -411,7 +411,7 @@
                 "kint",
                 "php"
             ],
-            "time": "2013-06-17 19:29:28"
+            "time": "2013-07-31 13:47:17"
         }
     ],
     "aliases": [
@@ -421,7 +421,7 @@
     "stability-flags": {
         "joomla/framework": 20,
         "symfony/http-foundation": 0,
-        "twitter/bootstrap": 20,
+        "twbs/bootstrap": 20,
         "raveren/kint": 20
     },
     "platform": {
