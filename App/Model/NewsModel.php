@@ -20,38 +20,41 @@ use App\Model\DefaultModel;
  */
 class NewsModel extends DefaultModel
 {
-
-	function getItem()
+	public function getItem()
 	{
 		$input = Factory::$application->input;
-		$id = $input->getUint('id');
+		$id    = $input->getUint('id');
 		$alias = $input->get('id');
 
-		if(!$id && !$alias) return false;
+		if (!$id && !$alias)
+		{
+			return false;
+		}
 
-		$query = $this->db->getQuery(true);
-		$query->select('a.*')
-			  ->from($this->db->quoteName('#__news','a'));
-		
-		if($id) 
+		$query = $this->db->getQuery(true)
+			->select('a.*')
+			->from($this->db->quoteName('#__news','a'));
+
+		if ($id)
 		{
 			$query->where($this->db->quoteName('a.news_id') . ' = ' . (int) $id);
-		} elseif($alias) 
+		}
+		elseif ($alias)
 		{
 			$query->where($this->db->quoteName('a.alias') . ' = ' . $this->db->quote($alias));
 		}
-			
+
 		$this->db->setQuery($query);
 		$data = $this->db->loadObject();
 
 		return $data;
 	}
 
-	function getItems()
+	public function getItems()
 	{
-		$query = $this->db->getQuery(true);
-		$query->select('a.*')
-			  ->from($this->db->quoteName('#__news','a'));
+		$query = $this->db->getQuery(true)
+			->select('a.*')
+			->from($this->db->quoteName('#__news','a'));
 
 		$this->db->setQuery($query);
 		$data = $this->db->loadObjectList();

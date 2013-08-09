@@ -11,7 +11,7 @@ use Joomla\Factory;
 use Joomla\Model\AbstractDatabaseModel;
 use Joomla\Database\DatabaseDriver;
 
-use App\Table\DefaultTable;
+use App\Table\DefaultDatabaseTable;
 
 /**
  * Default model for the tracker application.
@@ -39,7 +39,7 @@ class DefaultModel extends AbstractDatabaseModel
 	/**
 	 * Table instance
 	 *
-	 * @var    AbstractDatabaseTable
+	 * @var    DefaultDatabaseTable
 	 * @since  1.0
 	 */
 	protected $table;
@@ -68,7 +68,6 @@ class DefaultModel extends AbstractDatabaseModel
 
 			// Explode the remaining name into an array
 			$classArray = explode('\\', $className);
-
 		}
 
 		// Set the view name
@@ -128,9 +127,9 @@ class DefaultModel extends AbstractDatabaseModel
 
 		$class = $prefix . ucfirst($name);
 
-		if (!class_exists($class) && !($class instanceof AbstractDatabaseTable))
+		if (!class_exists($class) && !($class instanceof DefaultDatabaseTable))
 		{
-			throw new \RuntimeException(sprintf('Table class %s not found or is not an instance of AbstractDatabaseTable', $class));
+			throw new \RuntimeException(sprintf('Table class %s not found or is not an instance of DefaultDatabaseTable', $class));
 		}
 
 		$this->table = new $class($this->getDb());

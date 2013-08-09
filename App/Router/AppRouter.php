@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -11,8 +10,6 @@ use Joomla\Application\AbstractApplication;
 use Joomla\Controller\ControllerInterface;
 use Joomla\Input\Input;
 use Joomla\Router\Router;
-
-use App\Router\Exception\RoutingException;
 
 /**
  * Sample Router

@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -12,17 +11,15 @@ use Joomla\Controller\ControllerInterface;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
 use Joomla\Factory;
-use Joomla\Github\Github;
 use Joomla\Language\Language;
 use Joomla\Registry\Registry;
 
-use App\Controller\DefaultController;
-use App\Router\Exception\RoutingException;
 use App\Router\AppRouter;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
+ * Application class
  *
  * @since  1.0
  */
@@ -37,17 +34,9 @@ final class App extends AbstractWebApplication
 	protected $dispatcher;
 
 	/**
-	 * The name of the application.
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	protected $name = null;
-
-	/**
 	 * The default theme.
 	 *
-	 * @var  string
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected $theme = null;
@@ -128,7 +117,7 @@ final class App extends AbstractWebApplication
 		try
 		{
 			// Instantiate the router
-			$router = new Router\AppRouter($this->input, $this);
+			$router = new AppRouter($this->input, $this);
 			$maps = json_decode(file_get_contents(JPATH_CONFIGURATION . '/routes.json'));
 
 			if (!$maps)
@@ -139,9 +128,10 @@ final class App extends AbstractWebApplication
 			$router->addMaps($maps, true);
 			$router->setControllerPrefix('\\App');
 			$router->setDefaultController('\\Controller\\DefaultController');
-		
+
 			// Fetch the controller
-			$controller = $router->getController($this->get('uri.route'));	
+			/* @type ControllerInterface $controller */
+			$controller = $router->getController($this->get('uri.route'));
 			$content = $controller->execute();
 
 			$this->setBody($content);
@@ -196,10 +186,13 @@ final class App extends AbstractWebApplication
 		$this->sendHeaders();
 
 		$body = $this->getBody();
-		
-		if(file_exists(JPATH_THEMES . '/' . $this->theme . '/theme.php')) {
-				include(JPATH_THEMES . '/' . $this->theme . '/theme.php');
-		} else {
+
+		if (file_exists(JPATH_THEMES . '/' . $this->theme . '/theme.php'))
+		{
+			include JPATH_THEMES . '/' . $this->theme . '/theme.php';
+		}
+		else
+		{
 			echo $body;
 		}
 	}
@@ -376,21 +369,6 @@ final class App extends AbstractWebApplication
 	}
 
 	/**
-	 * Method to get the application name.
-	 *
-	 * The dispatcher name is by default parsed using the class name, or it can be set
-	 * by passing a $config['name'] in the class constructor.
-	 *
-	 * @return  string  The name of the dispatcher.
-	 *
-	 * @since   1.0
-	 */
-	public function getName()
-	{
-		return $this->name;
-	}
-
-	/**
 	 * Allows the application to load a custom or default dispatcher.
 	 *
 	 * The logic and options for creating this object are adequately generic for default cases
@@ -414,11 +392,11 @@ final class App extends AbstractWebApplication
 	 * Gets the default theme from the configuration
 	 *
 	 * @return  string
-	 * @since  1.0
+	 *
+	 * @since   1.0
 	 */
 	public function getTheme()
 	{
 		return $this->theme;
 	}
-
 }

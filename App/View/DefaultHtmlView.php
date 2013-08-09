@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -8,14 +7,12 @@
 namespace App\View;
 
 use Joomla\Factory;
-use Joomla\Language\Text;
 use Joomla\Model\ModelInterface;
 use Joomla\View\AbstractView;
 use Joomla\View\Renderer\RendererInterface;
 
-use App\App;
-
 /**
+ * Default view class for the application
  *
  * @since  1.0
  */

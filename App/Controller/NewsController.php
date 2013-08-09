@@ -7,14 +7,11 @@
 namespace App\Controller;
 
 use Joomla\Application\AbstractApplication;
-use Joomla\Controller\AbstractController;
 use Joomla\Input\Input;
 use Joomla\Log\Log;
-use App\App;
-use App\View\DefaultHtmlView;
 
 /**
- * News Controller class for the  Application
+ * News Controller class for the Application
  *
  * @since  1.0
  */
@@ -31,6 +28,7 @@ class NewsController extends DefaultController
 	public function __construct(Input $input = null, AbstractApplication $app = null)
 	{
 		parent::__construct($input, $app);
+
 		$this->defaultView = 'news';
 	}
 
@@ -38,5 +36,4 @@ class NewsController extends DefaultController
 	{
 		exit();
 	}
-
 }

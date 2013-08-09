@@ -15,10 +15,10 @@ use App\Table\DefaultDatabaseTable;
 /**
  * Table interface class for the #__news table
  *
- * @property   integer  $news_id 	       PK
- * @property   string   $title             News title
- * @property   string   $alias             News title alias
- * @property   string   $body  		       News Body
+ * @property   integer  $news_id  PK
+ * @property   string   $title    News title
+ * @property   string   $alias    News title alias
+ * @property   string   $body     News Body
  *
  * @since  1.0
  */
@@ -37,7 +37,7 @@ class NewsTable extends DefaultDatabaseTable
 	}
 
 	/**
-	 * Method to perform sanity checks on the J\Table instance properties to ensure
+	 * Method to perform sanity checks on the Table instance properties to ensure
 	 * they are safe to store in the database.
 	 *
 	 * @throws \UnexpectedValueException
@@ -63,24 +63,22 @@ class NewsTable extends DefaultDatabaseTable
 	}
 
 	/**
-	 * Method to store a row in the database from the JTable instance properties.
+	 * Method to store a row in the database from the DefaultDatabaseTable instance properties.
 	 * If a primary key value is set the row with that primary key value will be
 	 * updated with the instance property values.  If no primary key value is set
 	 * a new row will be inserted into the database with the properties from the
-	 * JTable instance.
+	 * DefaultDatabaseTable instance.
 	 *
 	 * @param   boolean  $updateNulls  True to update fields even if they are null.
 	 *
-	 * @return  boolean  True on success.
+	 * @return  $this  Method allows chaining
 	 *
-	 * @link    http://docs.joomla.org/JTable/store
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function store($updateNulls = false)
 	{
 		$oldId = $this->{$this->getKeyName()};
-		parent::store($updateNulls);
 
-		return $this;
+		return parent::store($updateNulls);
 	}
 }

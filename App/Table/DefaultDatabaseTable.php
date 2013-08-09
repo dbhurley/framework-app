@@ -284,14 +284,13 @@ class DefaultDatabaseTable implements \IteratorAggregate
 		}
 
 		// Initialise the query.
-		$query = $this->db->getQuery(true);
-		$query->select('*');
-		$query->from($this->db->quoteName($this->tableName));
+		$query = $this->db->getQuery(true)
+			->select('*')
+			->from($this->db->quoteName($this->tableName));
 
 		foreach ($keys as $field => $value)
 		{
 			// Check that $field is in the table.
-
 			if (isset($this->tableFields->$field) || is_null($this->tableFields->$field))
 			{
 				// Add the search tuple to the query.
@@ -388,11 +387,11 @@ class DefaultDatabaseTable implements \IteratorAggregate
 	}
 
 	/**
-	 * Method to store a row in the database from the AbstractDatabaseTable instance properties.
+	 * Method to store a row in the database from the DefaultDatabaseTable instance properties.
 	 * If a primary key value is set the row with that primary key value will be
 	 * updated with the instance property values.  If no primary key value is set
 	 * a new row will be inserted into the database with the properties from the
-	 * AbstractDatabaseTable instance.
+	 * DefaultDatabaseTable instance.
 	 *
 	 * @param   boolean  $updateNulls  True to update fields even if they are null.
 	 *
@@ -435,9 +434,9 @@ class DefaultDatabaseTable implements \IteratorAggregate
 		}
 		else
 		{
-			$query = $this->db->getQuery(true);
-			$query->select('COUNT(*)');
-			$query->from($this->tableName);
+			$query = $this->db->getQuery(true)
+				->select('COUNT(*)')
+				->from($this->tableName);
 			$this->appendPrimaryKeys($query);
 
 			$this->db->setQuery($query);
