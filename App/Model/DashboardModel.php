@@ -10,6 +10,7 @@ use Joomla\Factory;
 use Joomla\Filter\InputFilter;
 use Joomla\Registry\Registry;
 use Joomla\String\String;
+
 use App\Model\DefaultModel;
 
 /**
@@ -23,7 +24,7 @@ class DashboardModel extends DefaultModel
 	{
 		$input = Factory::$application->input;
 		$oldConfig = Factory::getConfig();
-		
+
 		$file = JPATH_CONFIGURATION . '/config.json';
 
 		// Verify the configuration exists and is readable.
@@ -31,7 +32,7 @@ class DashboardModel extends DefaultModel
 		{
 			throw new \RuntimeException('Configuration file does not exist or is unreadable.');
 		}
-		
+
 		$config = json_decode(file_get_contents($file));
 
 		$config->database->driver = $input->get('driver');
@@ -45,7 +46,7 @@ class DashboardModel extends DefaultModel
 
 		Factory::$application->loadConfiguration();
 
-		if($input->get('install_sample_data')) 
+		if ($input->get('install_sample_data'))
 		{
 			$this->installSampleData();
 		}
@@ -53,12 +54,12 @@ class DashboardModel extends DefaultModel
 		return true;
 	}
 
-	public function installSampleData() 
+	public function installSampleData()
 	{
 		$query = $this->db->getQuery(true);
 		$sampleData = JPATH_SETUP . '/sampleData.sql';
 
-		if(!is_readable($sampleData))
+		if (!is_readable($sampleData))
 		{
 			throw new \RuntimeException('Sample Data file does not exist or is unreadable');
 		}
@@ -72,7 +73,6 @@ class DashboardModel extends DefaultModel
 
 		foreach ($this->db->splitSql($sql) as $query)
 		{
-
 			$q = trim($this->db->replacePrefix($query));
 
 			if ('' == trim($q))
@@ -80,12 +80,12 @@ class DashboardModel extends DefaultModel
 				continue;
 			}
 
-			$this->db->setQuery($q);
-			$this->db->execute();
+			$this->db->setQuery($q)->execute();
 		}
 
 		Factory::$application->input->set('success',TRUE);
 		Factory::$application->redirect('');
+
 		return true;
 	}
 }

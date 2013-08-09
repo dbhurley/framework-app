@@ -10,7 +10,7 @@ use Joomla\Application\AbstractApplication;
 use Joomla\Controller\AbstractController;
 use Joomla\Input\Input;
 use Joomla\Log\Log;
-use App\App;
+
 use App\View\DefaultHtmlView;
 
 /**
@@ -29,14 +29,6 @@ class DefaultController extends AbstractController
 	protected $defaultView;
 
 	/**
-	 * The app being executed.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $app;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param   Input                $input  The input object.
@@ -47,8 +39,6 @@ class DefaultController extends AbstractController
 	public function __construct(Input $input = null, AbstractApplication $app = null)
 	{
 		parent::__construct($input, $app);
-
-		$this->app = $app;
 
 		$this->defaultView = 'dashboard';
 	}
@@ -65,10 +55,9 @@ class DefaultController extends AbstractController
 	 */
 	public function execute()
 	{
-		
 		// Get the input
 		$input = $this->getInput();
-		
+
 		$task = $input->get('task','view');
 
 		// Get some data from the request
@@ -78,26 +67,29 @@ class DefaultController extends AbstractController
 		//TODO
 		if (is_null($input->get('layout')))
 		{
-			if($task == 'view' && $input->get('id') == null)
+			if ($task == 'view' && $input->get('id') == null)
 			{
-				$input->set('layout','index');
-			} elseif($task =='view') 
+				$input->set('layout', 'index');
+			}
+			elseif ($task == 'view')
 			{
-				$input->set('layout','view');
-			} elseif($task != null)
+				$input->set('layout', 'view');
+			}
+			elseif ($task != null)
 			{
 				$this->$task();
 			}
 		}
 
-		$lName   = $input->get('layout');
+		$lName = $input->get('layout');
 
 		$input->set('view', $vName);
 
-		$base   = '\\App';
+		$base = '\\App';
 
 		$vClass = $base . '\\View\\' . ucfirst($vName) . '\\' . ucfirst($vName) . ucfirst($vFormat) . 'View';
 		$mClass = $base . '\\Model\\' . ucfirst($vName) . 'Model';
+
 		// If a model doesn't exist for our view, revert to the default model
 		if (!class_exists($mClass))
 		{
@@ -132,9 +124,10 @@ class DefaultController extends AbstractController
 			$paths[] = $path;
 		}
 
+		/* @type DefaultHtmlView $view */
 		$view = new $vClass(new $mClass, $paths);
 		$view->setLayout($vName . '.' . $lName);
-		
+
 		try
 		{
 			// Render our view.
@@ -142,10 +135,9 @@ class DefaultController extends AbstractController
 		}
 		catch (\Exception $e)
 		{
-				throw new \RuntimeException(sprintf('Error: '.$e));
+			throw new \RuntimeException(sprintf('Error: '.$e));
 		}
 
 		return;
 	}
-
 }
