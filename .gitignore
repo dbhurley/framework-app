@@ -1,4 +1,18 @@
-vendor
+# IDE based files and folders #
+.buildpath
+.project
+.settings
+.DS_Store
+.idea
+
+# Files and folders that should not be pushed to the repo #
 www/assets/css
 www/assets/js
 www/assets/img
+
+# Apple Files #
+.DS_STORE
+
+# COMPOSER Files #
+vendor/*
+composer.phar
