@@ -19,7 +19,7 @@
 	},
     "scripts": {
         "post-install-cmd": [
-            "App\\Setup\\InstallSymlinks::postInstall"
+            "App\\Setup\\InstallScript::postInstall"
         ]
     },
     "autoload": {
