@@ -6,6 +6,7 @@
 .idea
 
 # Files and folders that should not be pushed to the repo #
+App/Config/config.json
 www/assets/css
 www/assets/js
 www/assets/img
