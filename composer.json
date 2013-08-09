@@ -10,7 +10,7 @@
         "joomla/framework": "dev-master",
         "symfony/http-foundation": "2.3.*@stable",
         "twig/twig" : "1.*",
-        "twitter/bootstrap":"dev-master"
+        "twbs/bootstrap":"dev-master"
     },
 	"require-dev": {
 		"monolog/monolog": "1.5.0",
