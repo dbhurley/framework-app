@@ -9,6 +9,7 @@ namespace App\Setup;
 use Composer\Script\Event;
 
 /**
+ * Post-install event triggered during 'compser install' to set up system dependencies
  *
  * @since  1.0
  */
@@ -16,15 +17,21 @@ class InstallSymlinks
 {
     public static function postInstall(Event $event)
 	{
-		$bsImagePath = '../../vendor/twitter/bootstrap/docs/assets/img';
+		// Make sure the assets directory exists
+		if (!is_dir('www/assets'))
+		{
+			mkdir('www/assets', 0755);
+		}
+
+		$bsImagePath = '../../vendor/twbs/bootstrap/docs/assets/img';
 		$imgAssetsPath = 'www/assets/img';
 		symlink($bsImagePath,$imgAssetsPath);
 
-		$bsJSPath = '../../vendor/twitter/bootstrap/docs/assets/js';
+		$bsJSPath = '../../vendor/twbs/bootstrap/docs/assets/js';
 		$jsAssetsPath = 'www/assets/js';
 		symlink($bsJSPath,$jsAssetsPath);
 
-		$bsCSSPath = '../../vendor/twitter/bootstrap/docs/assets/css';
+		$bsCSSPath = '../../vendor/twbs/bootstrap/docs/assets/css';
 		$cssAssetsPath = 'www/assets/css';
 		symlink($bsCSSPath,$cssAssetsPath);
 	}
