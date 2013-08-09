@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "0d34e48b8390a61a52ccd4d1c9794c75",
+    "hash": "33884becf682a28217240caaba0a1c0a",
     "packages": [
         {
             "name": "joomla/framework",

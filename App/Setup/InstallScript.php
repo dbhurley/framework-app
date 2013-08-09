@@ -9,14 +9,20 @@ namespace App\Setup;
 use Composer\Script\Event;
 
 /**
- * Post-install event triggered during 'compser install' to set up system dependencies
+ * Post-install class triggered during 'compser install' to set up system dependencies
  *
  * @since  1.0
  */
-class InstallSymlinks
+class InstallScript
 {
     public static function postInstall(Event $event)
 	{
+		// Check if a config.json file exists, copy the config.dist.json if not
+		if (!file_exists('App/Config/config.json'))
+		{
+			copy('App/Config/config.dist.json', 'App/Config/config.json');
+		}
+
 		// Make sure the assets directory exists
 		if (!is_dir('www/assets'))
 		{
