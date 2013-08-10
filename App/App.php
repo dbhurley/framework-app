@@ -145,59 +145,6 @@ final class App extends AbstractWebApplication
 	}
 
 	/**
-	 * Method to send the application response to the client.  All headers will be sent prior to the main
-	 * application output data.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function respond()
-	{
-		// Send the content-type header.
-		$this->setHeader('Content-Type', $this->mimeType . '; charset=' . $this->charSet);
-
-		// If the response is set to uncachable, we need to set some appropriate headers so browsers don't cache the response.
-		if (!$this->response->cachable)
-		{
-			// Expires in the past.
-			$this->setHeader('Expires', 'Mon, 1 Jan 2001 00:00:00 GMT', true);
-
-			// Always modified.
-			$this->setHeader('Last-Modified', gmdate('D, d M Y H:i:s') . ' GMT', true);
-			$this->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0', false);
-
-			// HTTP 1.0
-			$this->setHeader('Pragma', 'no-cache');
-		}
-		else
-		{
-			// Expires.
-			$this->setHeader('Expires', gmdate('D, d M Y H:i:s', time() + 900) . ' GMT');
-
-			// Last modified.
-			if ($this->modifiedDate instanceof \DateTime)
-			{
-				$this->modifiedDate->setTimezone(new \DateTimeZone('UTC'));
-				$this->setHeader('Last-Modified', $this->modifiedDate->format('D, d M Y H:i:s') . ' GMT');
-			}
-		}
-
-		$this->sendHeaders();
-
-		$body = $this->getBody();
-
-		if (file_exists(JPATH_THEMES . '/' . $this->theme . '/theme.php'))
-		{
-			include JPATH_THEMES . '/' . $this->theme . '/theme.php';
-		}
-		else
-		{
-			echo $body;
-		}
-	}
-
-	/**
 	 * Initialize the configuration object.
 	 *
 	 * @return  $this  Method allows chaining

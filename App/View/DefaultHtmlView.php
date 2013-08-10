@@ -75,6 +75,9 @@ class DefaultHtmlView extends AbstractView
 			$this->renderer->setTemplatesPaths($templatesPaths, true);
 		}
 
+		// Register the theme path
+		$this->renderer->set('themePath', DEFAULT_THEME . '/');
+
 		// Retrieve and clear the message queue
 		$this->renderer->set('flashBag', $app->getMessageQueue());
 		$app->clearMessageQueue();

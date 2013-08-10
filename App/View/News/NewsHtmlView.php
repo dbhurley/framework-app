@@ -59,6 +59,15 @@ class NewsHtmlView extends DefaultHtmlView
 				$items = $this->model->getItems();
 				$this->renderer->set('items', $items);
 
+				if (count($items) >= 1)
+				{
+					Factory::$application->enqueueMessage("You've setup your database! Below are dynamic results.", 'success');
+				}
+				else
+				{
+					Factory::$application->enqueueMessage('Here you see a sample page layout. Ideally this would pull articles from the database.', 'alert');
+				}
+
 				break;
 		}
 

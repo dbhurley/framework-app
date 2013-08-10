@@ -1,3 +1,11 @@
-<h1>{{item.title}}</h1>
-<em>Article ID# {{item.news_id}}</em>
-<p>{{item.body}}</p>
+{% extends "index.twig" %}
+
+{% block title %}Add/Edit Article{% endblock %}
+
+{% block subtitle %}<h1 class="page-header">{{ item.title }}</h1>{% endblock %}
+
+{% block content %}
+    <em>Article ID# {{ item.news_id }}</em>
+    <p>{{ item.body }}</p>
+{% endblock %}
+
