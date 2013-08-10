@@ -1,0 +1,45 @@
+{% set firstPart = uri.route|split("/")|first %}
+
+<!DOCTYPE html>
+    <head>
+        <title>{% block title %}Awesome{% endblock %}</title>
+        <link href="{{ uri.base.path }}assets/css/bootstrap.css" rel="stylesheet"/>
+        <link href="{{ uri.base.path }}assets/css/bootstrap-responsive.css" rel="stylesheet"/>
+        <link href="{{ themePath }}css/theme.css" rel="stylesheet"/>
+    </head>
+    <body>
+
+        <div class="container-narrow">
+
+            <div class="masthead">
+                <ul class="nav nav-pills pull-right">
+                    <li class="{{ "" == uri.route or "dashboard" == firstPart ? "active" : "" }}"><a href="{{ uri.base.path }}">Home</a></li>
+                    <li class="{{ "news" == uri.route or "news" == firstPart ? "active" : "" }}"><a href="{{ uri.base.path }}news">Sample Page</a></li>
+                    <li><a href="http://joomla.github.io/joomla-framework/">Docs</a></li>
+                </ul>
+                <h3 class="muted">Joomla! Framework</h3>
+            </div>
+
+            <hr>
+            {% block subtitle %}{% endblock %}
+            {% for type, flashMessages in flashBag %}
+                {% for flashMessage in flashMessages %}
+                    <div class="alert alert-{{ type }}">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            {% block content %}{% endblock %}
+            <hr>
+
+            <div class="footer">
+                <p>&copy; Joomla! Framework 2013</p>
+            </div>
+
+        </div>
+
+        <script src="{{ uri.base.path }}assets/js/jquery.js"></script>
+        <script src="{{ uri.base.path }}assets/js/bootstrap.min.js"></script>
+    </body>
+</html>

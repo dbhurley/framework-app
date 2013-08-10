@@ -28,9 +28,13 @@ class DashboardHtmlView extends DefaultHtmlView
 	 */
 	public function render()
 	{
-		$this->renderer->set('success', Factory::$application->input->get('success', FALSE));
-		$this->renderer->set('logo', DEFAULT_THEME.'/images/logo.png');
-		$this->renderer->set('base_url', BASE_URL);
+		if (Factory::$application->input->get('success', false))
+		{
+			Factory::$application->enqueueMessage("Sweet! You've setup your database successfully. Check out the <a href=\"news\">Sample Page</a>", 'success');
+		}
+
+		$this->renderer->set('success', Factory::$application->input->get('success', false));
+		$this->renderer->set('logo', DEFAULT_THEME . '/images/logo.png');
 		$this->renderer->set('config', Factory::getConfig());
 
 		return parent::render();

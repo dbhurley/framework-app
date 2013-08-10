@@ -1,38 +1,42 @@
-<h1 class="page-header">News</h1>
+{% extends "index.twig" %}
 
-	{% if items %}
-		<p class="alert alert-success">You've setup your DB! Below are dynamic results</p>
-		<div class="row-fluid">
-			{% for item in items %}
-				<div class="span4">
-					<h3>{{item.title}}</h3>
-					<p>{{item.body}}</p>
-				</div>
-			{% endfor %}
-		</div>
-	{% else %}
+{% block title %}News{% endblock %}
 
-	<p class="alert alert-info">
-		Here you see a sample page layout. Ideally this would pull articles from the database.
-	</p>
+{% block subtitle %}<h1 class="page-header">News</h1>{% endblock %}
 
-	<div class="row-fluid">
-		<div class="span4">
-			<h3>News Heading 1</h3>
-			<p>The body of this news article goes here. This would pull from your database of articles.</p>	
-			<a href="#" class="btn">Read Article</a>
-		</div>
+{% block content %}
+    {% if items %}
+        <div class="row-fluid">
+            {% for item in items %}
+                <div class="span4">
+                    <h3>{{ item.title }}</h3>
 
-		<div class="span4">
-			<h3>News Heading 2</h3>
-			<p>The body of this news article goes here. This would pull from your database of articles.</p>
-			<a href="#" class="btn">Read Article</a>
-		</div>
+                    <p>{{ item.body }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="row-fluid">
+            <div class="span4">
+                <h3>News Heading 1</h3>
 
-		<div class="span4">
-			<h3>News Heading 3</h3>
-			<p>The body of this news article goes here. This would pull from your database of articles.</p>
-			<a href="#" class="btn">Read Article</a>
-		</div>
-	</div>
-{% endif %}
+                <p>The body of this news article goes here. This would pull from your database of articles.</p>
+                <a href="#" class="btn">Read Article</a>
+            </div>
+
+            <div class="span4">
+                <h3>News Heading 2</h3>
+
+                <p>The body of this news article goes here. This would pull from your database of articles.</p>
+                <a href="#" class="btn">Read Article</a>
+            </div>
+
+            <div class="span4">
+                <h3>News Heading 3</h3>
+
+                <p>The body of this news article goes here. This would pull from your database of articles.</p>
+                <a href="#" class="btn">Read Article</a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

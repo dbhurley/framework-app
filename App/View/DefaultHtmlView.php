@@ -6,6 +6,8 @@
 
 namespace App\View;
 
+use App\View\Renderer\TwigExtension;
+
 use Joomla\Factory;
 use Joomla\Model\ModelInterface;
 use Joomla\View\AbstractView;
@@ -64,11 +66,21 @@ class DefaultHtmlView extends AbstractView
 		// Load the renderer.
 		$this->renderer = new $className($config);
 
+		// Register application's Twig extension.
+		$this->renderer->addExtension(new TwigExtension);
+
 		// Register additional paths.
 		if (!empty($templatesPaths))
 		{
 			$this->renderer->setTemplatesPaths($templatesPaths, true);
 		}
+
+		// Register the theme path
+		$this->renderer->set('themePath', DEFAULT_THEME . '/');
+
+		// Retrieve and clear the message queue
+		$this->renderer->set('flashBag', $app->getMessageQueue());
+		$app->clearMessageQueue();
 	}
 
 	/**

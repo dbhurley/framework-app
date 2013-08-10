@@ -1,4 +1,11 @@
-<h1>Add/Edit Article</h1>
-<form>
-<input type="text" name="title" value="{{item.title}}" />
-</form>
+{% extends "index.twig" %}
+
+{% block title %}Add/Edit Article{% endblock %}
+
+{% block subtitle %}<h1 class="page-header">Add/Edit Article</h1>{% endblock %}
+
+{% block content %}
+    <form>
+        <input type="text" name="title" value="{{ item.title }}"/>
+    </form>
+{% endblock %}
