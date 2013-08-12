@@ -9,9 +9,7 @@ namespace App;
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
 use Joomla\Database\DatabaseDriver;
-use Joomla\Event\Dispatcher;
 use Joomla\Factory;
-use Joomla\Language\Language;
 use Joomla\Registry\Registry;
 
 use App\Router\AppRouter;
@@ -25,14 +23,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
  */
 final class App extends AbstractWebApplication
 {
-	/**
-	 * The Dispatcher object.
-	 *
-	 * @var    Dispatcher
-	 * @since  1.0
-	 */
-	protected $dispatcher;
-
 	/**
 	 * The default theme.
 	 *
@@ -51,28 +41,12 @@ final class App extends AbstractWebApplication
 	private $newSession = null;
 
 	/**
-	 * The User object.
-	 *
-	 * @var    User
-	 * @since  1.0
-	 */
-	private $user;
-
-	/**
 	 * The database driver object.
 	 *
 	 * @var    DatabaseDriver
 	 * @since  1.0
 	 */
 	private $database;
-
-	/**
-	 * The Language object
-	 *
-	 * @var    Language
-	 * @since  1.0
-	 */
-	private $language;
 
 	/**
 	 * Class constructor.
@@ -87,9 +61,6 @@ final class App extends AbstractWebApplication
 		// Load the configuration object.
 		$this->loadConfiguration();
 
-		// Register the event dispatcher
-		$this->loadDispatcher();
-
 		// Register the application to Factory
 		// @todo Decouple from Factory
 		Factory::$application = $this;
@@ -99,11 +70,7 @@ final class App extends AbstractWebApplication
 
 		define('BASE_URL', $this->get('uri.base.full'));
 		define('DEFAULT_THEME', BASE_URL . 'themes/' . $this->theme);
-
-		// Load the library language file
-		$this->getLanguage()->load('lib_joomla', JPATH_BASE);
 	}
-
 
 	/**
 	 * Method to run the Web application routines.
@@ -194,20 +161,6 @@ final class App extends AbstractWebApplication
 	}
 
 	/**
-	 * Provides a secure hash based on a seed
-	 *
-	 * @param   string  $seed  Seed string.
-	 *
-	 * @return  string  A secure hash
-	 *
-	 * @since   1.0
-	 */
-	public static function getHash($seed)
-	{
-		return md5(Factory::getConfig()->get('acl.secret') . $seed);
-	}
-
-	/**
 	 * Get a session object.
 	 *
 	 * @return  Session
@@ -258,25 +211,6 @@ final class App extends AbstractWebApplication
 	}
 
 	/**
-	 * Get a language object.
-	 *
-	 * @return  Language
-	 *
-	 * @since   1.0
-	 */
-	public function getLanguage()
-	{
-		if (is_null($this->language))
-		{
-			$this->language = Language::getInstance(
-				$this->get('language')
-			);
-		}
-
-		return $this->language;
-	}
-
-	/**
 	 * Clear the system message queue.
 	 *
 	 * @return  void
@@ -313,37 +247,5 @@ final class App extends AbstractWebApplication
 	public function setMessageQueue($type, $message = '')
 	{
 		$this->getSession()->getFlashBag()->set($type, $message);
-	}
-
-	/**
-	 * Allows the application to load a custom or default dispatcher.
-	 *
-	 * The logic and options for creating this object are adequately generic for default cases
-	 * but for many applications it will make sense to override this method and create event
-	 * dispatchers, if required, based on more specific needs.
-	 *
-	 * @param   Dispatcher  $dispatcher  An optional dispatcher object. If omitted, the factory dispatcher is created.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function loadDispatcher(Dispatcher $dispatcher = null)
-	{
-		$this->dispatcher = ($dispatcher === null) ? new Dispatcher : $dispatcher;
-
-		return $this;
-	}
-
-	/**
-	 * Gets the default theme from the configuration
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function getTheme()
-	{
-		return $this->theme;
 	}
 }
