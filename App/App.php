@@ -100,15 +100,15 @@ final class App extends AbstractWebApplication
 			/* @type ControllerInterface $controller */
 			$controller = $router->getController($this->get('uri.route'));
 			$content = $controller->execute();
-
-			$this->setBody($content);
 		}
 		catch (\Exception $exception)
 		{
 			header('HTTP/1.1 500 Internal Server Error', true, 500);
 
-			$this->setBody($exception);
+			$content = $exception->getMessage();
 		}
+
+		$this->setBody($content);
 	}
 
 	/**

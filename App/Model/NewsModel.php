@@ -20,6 +20,14 @@ use App\Model\DefaultModel;
  */
 class NewsModel extends DefaultModel
 {
+	/**
+	 * Retrieve a single news item
+	 *
+	 * @return  object  News item
+	 *
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
+	 */
 	public function getItem()
 	{
 		$input = Factory::$application->input;
@@ -28,7 +36,7 @@ class NewsModel extends DefaultModel
 
 		if (!$id && !$alias)
 		{
-			return false;
+			throw new \UnexpectedValueException('No news identifier provided.');
 		}
 
 		$query = $this->db->getQuery(true)
@@ -44,21 +52,22 @@ class NewsModel extends DefaultModel
 			$query->where($this->db->quoteName('a.alias') . ' = ' . $this->db->quote($alias));
 		}
 
-		$this->db->setQuery($query);
-		$data = $this->db->loadObject();
-
-		return $data;
+		return $this->db->setQuery($query)->loadObject();
 	}
 
+	/**
+	 * Retrieve all news items
+	 *
+	 * @return  object  Container with news items
+	 *
+	 * @since   1.0
+	 */
 	public function getItems()
 	{
 		$query = $this->db->getQuery(true)
 			->select('a.*')
 			->from($this->db->quoteName('#__news','a'));
 
-		$this->db->setQuery($query);
-		$data = $this->db->loadObjectList();
-
-		return $data;
+		return $this->db->setQuery($query)->loadObjectList();
 	}
 }
