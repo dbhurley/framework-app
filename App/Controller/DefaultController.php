@@ -26,22 +26,7 @@ class DefaultController extends AbstractController
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView;
-
-	/**
-	 * Constructor.
-	 *
-	 * @param   Input                $input  The input object.
-	 * @param   AbstractApplication  $app    The application object.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(Input $input = null, AbstractApplication $app = null)
-	{
-		parent::__construct($input, $app);
-
-		$this->defaultView = 'dashboard';
-	}
+	protected $defaultView = 'dashboard';
 
 	/**
 	 * Execute the controller.
@@ -135,7 +120,7 @@ class DefaultController extends AbstractController
 		}
 		catch (\Exception $e)
 		{
-			throw new \RuntimeException(sprintf('Error: '.$e));
+			throw new \RuntimeException(sprintf('Error: ' . $e->getMessage()));
 		}
 
 		return;

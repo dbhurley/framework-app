@@ -19,18 +19,13 @@ use App\Model\DashboardModel;
 class DashboardController extends DefaultController
 {
 	/**
-	 * Constructor.
+	 * Task to update the database configuration and install sample data
 	 *
-	 * @param   Input                $input  The input object.
-	 * @param   AbstractApplication  $app    The application object.
+	 * @return  void
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
-	public function __construct(Input $input = null, AbstractApplication $app = null)
-	{
-		parent::__construct($input, $app);
-	}
-
 	public function updateDatabase()
 	{
 		try
@@ -38,9 +33,12 @@ class DashboardController extends DefaultController
 			$dashboardModel = new DashboardModel;
 			$dashboardModel->updateDatabase();
 
-		} catch (\Exception $e)
+			$this->getInput()->set('success', true);
+			$this->getApplication()->redirect($this->getApplication()->get('uri.base.path'));
+		}
+		catch (\Exception $e)
 		{
-				throw new \RuntimeException(sprintf('Error: '.$e));
+			throw new \RuntimeException(sprintf('Error: ' . $e->getMessage()));
 		}
 	}
 }

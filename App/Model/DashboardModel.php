@@ -20,6 +20,14 @@ use App\Model\DefaultModel;
  */
 class DashboardModel extends DefaultModel
 {
+	/**
+	 * Update the database configuration
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
 	public function updateDatabase()
 	{
 		$input = Factory::$application->input;
@@ -35,7 +43,7 @@ class DashboardModel extends DefaultModel
 
 		$config = json_decode(file_get_contents($file));
 
-		$config->database->driver = $input->get('driver');
+		$config->database->driver = $input->get('driver', $oldConfig->get('database.driver'));
 		$config->database->user = $input->get('user', $oldConfig->get('database.user'));
 		$config->database->password = $input->get('password', $oldConfig->get('database.password'));
 		$config->database->name = $input->get('name', $oldConfig->get('database.name'));
@@ -54,9 +62,17 @@ class DashboardModel extends DefaultModel
 		return true;
 	}
 
+	/**
+	 * Install sample data for the application
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 * @throws  \UnexpectedValueException
+	 */
 	public function installSampleData()
 	{
-		$query = $this->db->getQuery(true);
 		$sampleData = JPATH_SETUP . '/sampleData.sql';
 
 		if (!is_readable($sampleData))
@@ -82,9 +98,6 @@ class DashboardModel extends DefaultModel
 
 			$this->db->setQuery($q)->execute();
 		}
-
-		Factory::$application->input->set('success',TRUE);
-		Factory::$application->redirect('');
 
 		return true;
 	}
