@@ -9,7 +9,7 @@
 namespace App\View\Renderer;
 
 /**
- * Twig class for rendering output.
+ * Twig class for rendering outp ut.
  *
  * @since  1.0
  */
