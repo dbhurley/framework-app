@@ -6,8 +6,6 @@
 
 namespace App\View\Renderer;
 
-use Joomla\Factory;
-
 use App\App;
 
 /**
@@ -17,6 +15,24 @@ use App\App;
  */
 class TwigExtension extends \Twig_Extension
 {
+	/**
+	 * Application object
+	 *
+	 * @var    App
+	 * @since  1.0
+	 */
+	protected $app;
+
+	/**
+	 * @param   App  $app  Application object
+	 *
+	 * @since   1.0
+	 */
+	public function __construct(App $app)
+	{
+		$this->app = $app;
+	}
+
 	/**
 	 * Returns the name of the extension.
 	 *
@@ -38,11 +54,8 @@ class TwigExtension extends \Twig_Extension
 	 */
 	public function getGlobals()
 	{
-		/* @var App $app */
-		$app = Factory::$application;
-
 		return array(
-			'uri' => $app->get('uri')
+			'uri' => $this->app->get('uri')
 		);
 	}
 

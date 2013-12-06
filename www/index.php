@@ -13,8 +13,12 @@ define('JPATH_TEMPLATES',     JPATH_ROOT . '/App/Templates');
 // Load the Composer autoloader
 require JPATH_ROOT . '/vendor/autoload.php';
 
+$container = new \Joomla\DI\Container;
+$container->registerServiceProvider(new \App\Service\ConfigServiceProvider(JPATH_CONFIGURATION . '/config.json'))
+	->registerServiceProvider(new \App\Service\DatabaseServiceProvider);
+
 // Instantiate the application.
-$application = new App\App;
+$application = new \App\App($container);
 
 // Execute the application.
 $application->execute();

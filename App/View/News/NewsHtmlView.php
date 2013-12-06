@@ -42,7 +42,7 @@ class NewsHtmlView extends DefaultHtmlView
 			case 'news.view':
 			case 'news.edit':
 				// Get the input
-				if (Factory::$application->input->get('task') != 'add')
+				if ($this->app->input->get('task') != 'add')
 				{
 					$item = $this->model->getItem();
 					$this->renderer->set('item', $item);
@@ -61,11 +61,11 @@ class NewsHtmlView extends DefaultHtmlView
 
 				if (count($items) >= 1)
 				{
-					Factory::$application->enqueueMessage("You've setup your database! Below are dynamic results.", 'success');
+					$this->app->enqueueMessage("You've setup your database! Below are dynamic results.", 'success');
 				}
 				else
 				{
-					Factory::$application->enqueueMessage('Here you see a sample page layout. Ideally this would pull articles from the database.', 'alert');
+					$this->app->enqueueMessage('Here you see a sample page layout. Ideally this would pull articles from the database.', 'alert');
 				}
 
 				break;

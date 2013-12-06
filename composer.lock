@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "185dc529cacdf2bc59d8d9fa86c23037",
+    "hash": "99a682e5ada0e905fe577c87f603e579",
     "packages": [
         {
             "name": "joomla/framework",
@@ -186,45 +186,30 @@
         },
         {
             "name": "twbs/bootstrap",
-            "version": "dev-master",
+            "version": "v2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "7b06538c911f40c46ae67b0c0df7afdfbcb5d00a"
+                "reference": "b4c4072679943773a7582daa63f545ba818fa627"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/7b06538c911f40c46ae67b0c0df7afdfbcb5d00a",
-                "reference": "7b06538c911f40c46ae67b0c0df7afdfbcb5d00a",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/b4c4072679943773a7582daa63f545ba818fa627",
+                "reference": "b4c4072679943773a7582daa63f545ba818fa627",
                 "shasum": ""
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.0.x-dev"
-                }
-            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache-2.0"
             ],
-            "authors": [
-                {
-                    "name": "Jacob Thornton",
-                    "email": "jacobthornton@gmail.com"
-                },
-                {
-                    "name": "Mark Otto",
-                    "email": "markdotto@gmail.com"
-                }
-            ],
-            "description": "Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.",
-            "homepage": "http://getbootstrap.com",
+            "description": "Sleek, intuitive, and powerful front-end framework for faster and easier web development.",
+            "homepage": "http://twbs.github.com/bootstrap/",
             "keywords": [
                 "bootstrap",
                 "css"
             ],
-            "time": "2013-12-06 00:53:15"
+            "time": "2013-07-27 06:36:38"
         },
         {
             "name": "twig/twig",
@@ -337,7 +322,6 @@
         "joomla/framework": 0,
         "symfony/http-foundation": 0,
         "twig/twig": 0,
-        "twbs/bootstrap": 20,
         "filp/whoops": 0
     },
     "platform": {

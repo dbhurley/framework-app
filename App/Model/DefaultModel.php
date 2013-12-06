@@ -8,10 +8,9 @@
 namespace App\Model;
 
 use Joomla\Factory;
+use Joomla\Input\Input;
 use Joomla\Model\AbstractDatabaseModel;
 use Joomla\Database\DatabaseDriver;
-
-use App\Table\DefaultDatabaseTable;
 
 /**
  * Default model for the tracker application.
@@ -21,16 +20,26 @@ use App\Table\DefaultDatabaseTable;
 class DefaultModel extends AbstractDatabaseModel
 {
 	/**
+	 * Input object
+	 *
+	 * @var    Input
+	 * @since  1.0
+	 */
+	protected $input;
+
+	/**
 	 * Instantiate the model.
 	 *
-	 * @param   DatabaseDriver  $database  The database adapter.
+	 * @param   Input           $input  Input object.
+	 * @param   DatabaseDriver  $db     The database adapter.
+	 * @param   Registry        $state  The model state.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(DatabaseDriver $database = null)
+	public function __construct(Input $input, DatabaseDriver $db, Registry $state = null)
 	{
-		$database = (is_null($database)) ? Factory::$application->getDatabase() : $database;
+		parent::__construct($db);
 
-		parent::__construct($database);
+		$this->input = $input;
 	}
 }

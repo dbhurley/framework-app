@@ -30,8 +30,8 @@ class DashboardController extends DefaultController
 	{
 		try
 		{
-			$dashboardModel = new DashboardModel;
-			$dashboardModel->updateDatabase();
+			$dashboardModel = new DashboardModel($this->getInput(), $this->getContainer()->get('db'));
+			$dashboardModel->updateDatabase($this->getContainer()->get('config'));
 
 			$this->getInput()->set('success', true);
 			$this->getApplication()->redirect($this->getApplication()->get('uri.base.path'));
