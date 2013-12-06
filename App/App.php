@@ -68,9 +68,6 @@ final class App extends AbstractWebApplication implements ContainerAwareInterfac
 
 		define('BASE_URL', $this->get('uri.base.full'));
 		define('DEFAULT_THEME', BASE_URL . 'themes/' . $this->theme);
-
-		// Register the application as a provider
-		$this->getContainer()->registerServiceProvider(new ApplicationServiceProvider($this));
 	}
 
 	/**
