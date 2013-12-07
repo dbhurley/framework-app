@@ -6,9 +6,9 @@
 
 namespace App\View;
 
+use App\App;
 use App\View\Renderer\TwigExtension;
 
-use Joomla\Factory;
 use Joomla\Model\ModelInterface;
 use Joomla\View\AbstractView;
 use Joomla\View\Renderer\RendererInterface;
@@ -20,6 +20,14 @@ use Joomla\View\Renderer\RendererInterface;
  */
 class DefaultHtmlView extends AbstractView
 {
+	/**
+	 * Application object
+	 *
+	 * @var    App
+	 * @since  1.0
+	 */
+	protected $app;
+
 	/**
 	 * The view layout.
 	 *
@@ -39,19 +47,20 @@ class DefaultHtmlView extends AbstractView
 	/**
 	 * Method to instantiate the view.
 	 *
+	 * @param   App             $app             The application object.
 	 * @param   ModelInterface  $model           The model object.
 	 * @param   string|array    $templatesPaths  The templates paths.
 	 *
 	 * @throws  \RuntimeException
 	 * @since   1.0
 	 */
-	public function __construct(ModelInterface $model, $templatesPaths = '')
+	public function __construct(App $app, ModelInterface $model, $templatesPaths = '')
 	{
 		parent::__construct($model);
 
-		$app = Factory::$application;
+		$this->app = $app;
 
-		$renderer = $app->get('renderer.type');
+		$renderer = $app->getContainer()->get('config')->get('renderer.type');
 
 		$className = 'App\\View\\Renderer\\' . ucfirst($renderer);
 
@@ -67,7 +76,7 @@ class DefaultHtmlView extends AbstractView
 		$this->renderer = new $className($config);
 
 		// Register application's Twig extension.
-		$this->renderer->addExtension(new TwigExtension);
+		$this->renderer->addExtension(new TwigExtension($app));
 
 		// Register additional paths.
 		if (!empty($templatesPaths))

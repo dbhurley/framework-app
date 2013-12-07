@@ -30,9 +30,8 @@ class NewsModel extends DefaultModel
 	 */
 	public function getItem()
 	{
-		$input = Factory::$application->input;
-		$id    = $input->getUint('id');
-		$alias = $input->get('id');
+		$id    = $this->input->getUint('id');
+		$alias = $this->input->get('id');
 
 		if (!$id && !$alias)
 		{

@@ -6,11 +6,11 @@
 
 namespace App;
 
+use App\Service\ApplicationServiceProvider;
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
-use Joomla\Database\DatabaseDriver;
-use Joomla\Factory;
-use Joomla\Registry\Registry;
+use Joomla\DI\Container;
+use Joomla\DI\ContainerAwareInterface;
 
 use App\Router\AppRouter;
 
@@ -21,8 +21,16 @@ use Symfony\Component\HttpFoundation\Session\Session;
  *
  * @since  1.0
  */
-final class App extends AbstractWebApplication
+final class App extends AbstractWebApplication implements ContainerAwareInterface
 {
+	/**
+	 * DI Container
+	 *
+	 * @var    Container
+	 * @since  1.0
+	 */
+	protected $container;
+
 	/**
 	 * The default theme.
 	 *
@@ -41,30 +49,20 @@ final class App extends AbstractWebApplication
 	private $newSession = null;
 
 	/**
-	 * The database driver object.
-	 *
-	 * @var    DatabaseDriver
-	 * @since  1.0
-	 */
-	private $database;
-
-	/**
 	 * Class constructor.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Container $container)
 	{
 		// Run the parent constructor
 		parent::__construct();
 
-		// Load the configuration object.
-		$this->loadConfiguration();
+		$this->setContainer($container);
 
-		// Register the application to Factory
-		// @todo Decouple from Factory
-		Factory::$application = $this;
-		Factory::$config = $this->config;
+		// Merge the config into the application
+		$config = $container->get('config');
+		$this->config->merge($config);
 
 		$this->theme = $this->config->get('theme.default');
 
@@ -112,38 +110,6 @@ final class App extends AbstractWebApplication
 	}
 
 	/**
-	 * Initialize the configuration object.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function loadConfiguration()
-	{
-		// Set the configuration file path for the application.
-		$file = JPATH_CONFIGURATION . '/config.json';
-
-		// Verify the configuration exists and is readable.
-		if (!is_readable($file))
-		{
-			throw new \RuntimeException('Configuration file does not exist or is unreadable.');
-		}
-
-		// Load the configuration file into an object.
-		$config = json_decode(file_get_contents($file));
-
-		if ($config === null)
-		{
-			throw new \RuntimeException(sprintf('Unable to parse the configuration file %s.', $file));
-		}
-
-		$this->config->loadObject($config);
-
-		return $this;
-	}
-
-	/**
 	 * Enqueue a system message.
 	 *
 	 * @param   string  $msg   The message to enqueue.
@@ -161,6 +127,18 @@ final class App extends AbstractWebApplication
 	}
 
 	/**
+	 * Get the DI container.
+	 *
+	 * @return  Container
+	 *
+	 * @since   1.0
+	 */
+	public function getContainer()
+	{
+		return $this->container;
+	}
+
+	/**
 	 * Get a session object.
 	 *
 	 * @return  Session
@@ -173,41 +151,9 @@ final class App extends AbstractWebApplication
 		{
 			$this->newSession = new Session;
 			$this->newSession->start();
-
-			// @todo Decouple from Factory
-			Factory::$session = $this->newSession;
 		}
 
 		return $this->newSession;
-	}
-
-	/**
-	 * Get a database driver object.
-	 *
-	 * @return  DatabaseDriver
-	 *
-	 * @since   1.0
-	 */
-	public function getDatabase()
-	{
-		if (is_null($this->database))
-		{
-			$this->database = DatabaseDriver::getInstance(
-				array(
-					'driver' => $this->get('database.driver'),
-					'host' => $this->get('database.host'),
-					'user' => $this->get('database.user'),
-					'password' => $this->get('database.password'),
-					'database' => $this->get('database.name'),
-					'prefix' => $this->get('database.prefix')
-				)
-			);
-
-			// @todo Decouple from Factory
-			Factory::$database = $this->database;
-		}
-
-		return $this->database;
 	}
 
 	/**
@@ -232,6 +178,22 @@ final class App extends AbstractWebApplication
 	public function getMessageQueue()
 	{
 		return $this->getSession()->getFlashBag()->peekAll();
+	}
+
+	/**
+	 * Set the DI container.
+	 *
+	 * @param   Container  $container  The DI container.
+	 *
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
+	 */
+	public function setContainer(Container $container)
+	{
+		$this->container = $container;
+
+		return $this;
 	}
 
 	/**

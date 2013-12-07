@@ -8,6 +8,7 @@ namespace App\Router;
 
 use Joomla\Application\AbstractApplication;
 use Joomla\Controller\ControllerInterface;
+use Joomla\DI\ContainerAwareInterface;
 use Joomla\Input\Input;
 use Joomla\Router\Router;
 
@@ -65,6 +66,11 @@ class AppRouter extends Router
 
 		// Instantiate the controller.
 		$controller = new $class($this->input, $this->app);
+
+		if ($controller instanceof ContainerAwareInterface)
+		{
+			$controller->setContainer($this->app->getContainer());
+		}
 
 		return $controller;
 	}

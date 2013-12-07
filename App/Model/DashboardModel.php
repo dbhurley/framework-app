@@ -7,11 +7,7 @@
 namespace App\Model;
 
 use Joomla\Factory;
-use Joomla\Filter\InputFilter;
 use Joomla\Registry\Registry;
-use Joomla\String\String;
-
-use App\Model\DefaultModel;
 
 /**
  * Model to get data for the issue list view
@@ -23,16 +19,15 @@ class DashboardModel extends DefaultModel
 	/**
 	 * Update the database configuration
 	 *
+	 * @param   Registry  $oldConfig  The current configuration object
+	 *
 	 * @return  boolean
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function updateDatabase()
+	public function updateDatabase(Registry $oldConfig)
 	{
-		$input = Factory::$application->input;
-		$oldConfig = Factory::getConfig();
-
 		$file = JPATH_CONFIGURATION . '/config.json';
 
 		// Verify the configuration exists and is readable.
@@ -43,18 +38,16 @@ class DashboardModel extends DefaultModel
 
 		$config = json_decode(file_get_contents($file));
 
-		$config->database->driver = $input->get('driver', $oldConfig->get('database.driver'));
-		$config->database->user = $input->get('user', $oldConfig->get('database.user'));
-		$config->database->password = $input->get('password', $oldConfig->get('database.password'));
-		$config->database->name = $input->get('name', $oldConfig->get('database.name'));
-		$config->database->host = $input->get('host', $oldConfig->get('database.host'));
-		$config->database->prefix = $input->get('prefix', $oldConfig->get('database.prefix'));
+		$config->database->driver = $this->input->get('driver', $oldConfig->get('database.driver'));
+		$config->database->user = $this->input->get('user', $oldConfig->get('database.user'));
+		$config->database->password = $this->input->get('password', $oldConfig->get('database.password'));
+		$config->database->name = $this->input->get('name', $oldConfig->get('database.name'));
+		$config->database->host = $this->input->get('host', $oldConfig->get('database.host'));
+		$config->database->prefix = $this->input->get('prefix', $oldConfig->get('database.prefix'));
 
 		file_put_contents($file, json_encode($config));
 
-		Factory::$application->loadConfiguration();
-
-		if ($input->get('install_sample_data'))
+		if ($this->input->get('install_sample_data'))
 		{
 			$this->installSampleData();
 		}

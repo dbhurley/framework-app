@@ -5,22 +5,20 @@
  */
 
 // Define required paths
-define('JPATH_BASE',          dirname(__DIR__));
-define('JPATH_CONFIGURATION', JPATH_BASE . '/App/Config');
-define('JPATH_SETUP',         JPATH_BASE . '/App/Setup');
-define('JPATH_ROOT',          JPATH_BASE);
-define('JPATH_SITE',          JPATH_BASE);
-define('JPATH_THEMES',        JPATH_BASE . '/www/themes');
-define('JPATH_TEMPLATES',	  JPATH_BASE . '/App/Templates');
+define('JPATH_ROOT',          dirname(__DIR__));
+define('JPATH_CONFIGURATION', JPATH_ROOT . '/App/Config');
+define('JPATH_SETUP',         JPATH_ROOT . '/App/Setup');
+define('JPATH_TEMPLATES',     JPATH_ROOT . '/App/Templates');
 
 // Load the Composer autoloader
-require JPATH_BASE . '/vendor/autoload.php';
+require JPATH_ROOT . '/vendor/autoload.php';
 
-// Load the Joomla Framework
-require JPATH_BASE . '/vendor/joomla/framework/src/import.php';
+$container = new \Joomla\DI\Container;
+$container->registerServiceProvider(new \App\Service\ConfigServiceProvider(JPATH_CONFIGURATION . '/config.json'))
+	->registerServiceProvider(new \App\Service\DatabaseServiceProvider);
 
 // Instantiate the application.
-$application = new App\App;
+$application = new \App\App($container);
 
 // Execute the application.
 $application->execute();
