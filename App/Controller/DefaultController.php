@@ -6,10 +6,9 @@
 
 namespace App\Controller;
 
-use Joomla\Application\AbstractApplication;
 use Joomla\Controller\AbstractController;
-use Joomla\Input\Input;
-use Joomla\Log\Log;
+use Joomla\DI\ContainerAwareInterface;
+use Joomla\DI\Container;
 
 use App\View\DefaultHtmlView;
 
@@ -18,8 +17,16 @@ use App\View\DefaultHtmlView;
  *
  * @since  1.0
  */
-class DefaultController extends AbstractController
+class DefaultController extends AbstractController implements ContainerAwareInterface
 {
+	/**
+	 * DI Container
+	 *
+	 * @var    Container
+	 * @since  1.0
+	 */
+	private $container;
+
 	/**
 	 * The default view for the app
 	 *
@@ -110,7 +117,7 @@ class DefaultController extends AbstractController
 		}
 
 		/* @type DefaultHtmlView $view */
-		$view = new $vClass(new $mClass, $paths);
+		$view = new $vClass($this->getApplication(), new $mClass($this->getInput(), $this->getContainer()->get('db')), $paths);
 		$view->setLayout($vName . '.' . $lName);
 
 		try
@@ -124,5 +131,33 @@ class DefaultController extends AbstractController
 		}
 
 		return;
+	}
+
+	/**
+	 * Get the DI container.
+	 *
+	 * @return  Container
+	 *
+	 * @since   1.0
+	 */
+	public function getContainer()
+	{
+		return $this->container;
+	}
+
+	/**
+	 * Set the DI container.
+	 *
+	 * @param   Container  $container  The DI container.
+	 *
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
+	 */
+	public function setContainer(Container $container)
+	{
+		$this->container = $container;
+
+		return $this;
 	}
 }

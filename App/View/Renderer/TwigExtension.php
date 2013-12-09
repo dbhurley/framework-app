@@ -6,8 +6,6 @@
 
 namespace App\View\Renderer;
 
-use Joomla\Factory;
-
 use App\App;
 
 /**
@@ -17,6 +15,24 @@ use App\App;
  */
 class TwigExtension extends \Twig_Extension
 {
+	/**
+	 * Application object
+	 *
+	 * @var    App
+	 * @since  1.0
+	 */
+	protected $app;
+
+	/**
+	 * @param   App  $app  Application object
+	 *
+	 * @since   1.0
+	 */
+	public function __construct(App $app)
+	{
+		$this->app = $app;
+	}
+
 	/**
 	 * Returns the name of the extension.
 	 *
@@ -38,11 +54,8 @@ class TwigExtension extends \Twig_Extension
 	 */
 	public function getGlobals()
 	{
-		/* @var App $app */
-		$app = Factory::$application;
-
 		return array(
-			'uri' => $app->get('uri')
+			'uri' => $this->app->get('uri')
 		);
 	}
 
@@ -81,7 +94,7 @@ class TwigExtension extends \Twig_Extension
 	}
 
 	/**
-	 * Replaces the application root path defined by the constant "JPATH_BASE" with the string "JROOT".
+	 * Replaces the application root path defined by the constant "JPATH_ROOT" with the string "JROOT".
 	 *
 	 * @param   string  $string  The string to process.
 	 *
@@ -91,7 +104,7 @@ class TwigExtension extends \Twig_Extension
 	 */
 	public function stripJRoot($string)
 	{
-		return str_replace(JPATH_BASE, 'JROOT', $string);
+		return str_replace(JPATH_ROOT, 'JROOT', $string);
 	}
 
 	/**
