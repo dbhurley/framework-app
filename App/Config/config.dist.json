@@ -1,0 +1,24 @@
+{
+   "database": {
+     "driver": "mysql",
+     "host": "localhost",
+     "user": "root",
+     "password": "root",
+     "name": "framework-app",
+     "prefix": "app_"
+   },
+   "renderer": {
+     "type": "twig"
+   },
+   "theme": {
+     "default": "awesome"
+   },
+   "system": {
+     "list_limit": "20",
+     "gzip": "0",
+     "offset": "UTC"
+   },
+   "languages": [
+     "en-GB"
+   ]
+ }
